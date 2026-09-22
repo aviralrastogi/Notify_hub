@@ -6,8 +6,8 @@ def send_whatsapp(to: str, body: str) -> dict:
     """
     Send a WhatsApp message via Meta Cloud API with clear human-readable error messages.
     """
-    phone_number_id = (settings.PHONE_NUMBER_ID or '').strip()
-    access_token = (settings.WHATSAPP_ACCESS_TOKEN or '').strip()
+    phone_number_id = (settings.PHONE_NUMBER_ID or '').strip().strip('"\'')
+    access_token = (settings.WHATSAPP_ACCESS_TOKEN or '').strip().strip('"\'')
 
     if not phone_number_id or not access_token:
         raise ValueError('WhatsApp credentials not configured. Please set PHONE_NUMBER_ID and WHATSAPP_ACCESS_TOKEN.')
