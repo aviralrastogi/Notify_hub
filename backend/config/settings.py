@@ -6,8 +6,8 @@ from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Load local .env if present (Render/production injects variables directly)
-load_dotenv(BASE_DIR / '.env')
+# Load local .env if present (override=True ensures local .env overrides stale shell session vars)
+load_dotenv(BASE_DIR / '.env', override=True)
 
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-dev-key-change-in-production')
 
