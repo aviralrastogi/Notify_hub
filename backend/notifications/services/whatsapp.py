@@ -51,8 +51,9 @@ def send_whatsapp(to: str, body: str) -> dict:
 
             # Expired or invalid token (OAuthException 190)
             if err_code == 190 or subcode == 463 or response.status_code == 401:
+                token_preview = f"{access_token[:12]}...{access_token[-6:]}" if len(access_token) >= 18 else access_token
                 raise ValueError(
-                    "WhatsApp Access Token has expired! Please generate a new temporary token from Meta for Developers (WhatsApp > API Setup) and update your WHATSAPP_ACCESS_TOKEN."
+                    f"WhatsApp Token rejected by Meta (Active Token: '{token_preview}', len: {len(access_token)}, Phone ID: '{phone_number_id}'). Meta says: {err_msg}"
                 )
             
             # Recipient not in sandbox list
