@@ -145,3 +145,21 @@ class NotificationLogView(APIView):
     def get(self, request):
         logs = NotificationLog.objects.all()[:100]
         return Response(NotificationLogSerializer(logs, many=True).data)
+
+
+class ConfigStatusView(APIView):
+    permission_classes = [permissions.AllowAny]
+
+    def get(self, request):
+        import os
+        from django.conf import settings
+        token = (getattr(settings, 'WHATSAPP_ACCESS_TOKEN', '') or '').strip().strip('"\'')
+        phone = (getattr(settings, 'PHONE_NUMBER_ID', '') or '').strip().strip('"\'')
+        return Response({
+            'whatsapp_token_prefix': token[:12] if len(token) >= 12 else token,
+            'whatsapp_token_suffix': token[-8:] if len(token) >= 8 else '',
+            'whatsapp_token_len': len(token),
+            'phone_id': phone,
+            'render_commit': os.environ.get('RENDER_GIT_COMMIT', 'local'),
+            'render_service_id': os.environ.get('RENDER_SERVICE_ID', 'local'),
+        })

@@ -2,7 +2,7 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .views import (
     TriggerViewSet, NotificationTemplateViewSet,
-    FireTriggerView, WebPushSubscribeView, NotificationLogView
+    FireTriggerView, WebPushSubscribeView, NotificationLogView, ConfigStatusView
 )
 
 router = DefaultRouter()
@@ -14,4 +14,5 @@ urlpatterns = [
     path('fire-trigger/', FireTriggerView.as_view(), name='fire-trigger'),
     path('webpush/subscribe/', WebPushSubscribeView.as_view(), name='webpush-subscribe'),
     path('logs/', NotificationLogView.as_view(), name='notification-logs'),
+    path('config-status/', ConfigStatusView.as_view(), name='config-status'),
 ]
