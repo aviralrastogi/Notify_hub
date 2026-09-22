@@ -6,14 +6,8 @@ from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Load .env if present; fallback to .env.example so project runs out-of-the-box
-env_path = BASE_DIR / '.env'
-if not env_path.exists():
-    env_path = BASE_DIR / '.env.example'
-if env_path.exists():
-    load_dotenv(env_path)
-else:
-    load_dotenv()
+# Load local .env if present (Render/production injects variables directly)
+load_dotenv(BASE_DIR / '.env')
 
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-dev-key-change-in-production')
 

@@ -3,8 +3,7 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
-  const exampleEnv = loadEnv('example', process.cwd(), '')
-  const onesignalAppId = env.VITE_ONESIGNAL_APP_ID || exampleEnv.VITE_ONESIGNAL_APP_ID || ''
+  const onesignalAppId = env.VITE_ONESIGNAL_APP_ID || ''
 
   return {
     plugins: [
