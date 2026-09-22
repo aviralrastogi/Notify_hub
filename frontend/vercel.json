@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/((?!assets/|push/|OneSignalSDKWorker\\.js|sw\\.js|vite\\.svg).*)",
+      "destination": "/index.html"
+    }
+  ]
+}
