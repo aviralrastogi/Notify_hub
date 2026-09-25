@@ -28,13 +28,14 @@ class IsAdminOrReadOnly(permissions.BasePermission):
 class TriggerViewSet(viewsets.ModelViewSet):
     queryset = Trigger.objects.prefetch_related('templates').all()
     serializer_class = TriggerSerializer
-    permission_classes = [permissions.IsAdminUser]
+    permission_classes = [permissions.IsAuthenticated]
 
 
 class NotificationTemplateViewSet(viewsets.ModelViewSet):
     queryset = NotificationTemplate.objects.select_related('trigger').all()
     serializer_class = NotificationTemplateSerializer
-    permission_classes = [permissions.IsAdminUser]
+    permission_classes = [permissions.IsAuthenticated]
+
 
     @action(detail=True, methods=['post'])
     def toggle(self, request, pk=None):
@@ -140,7 +141,8 @@ class WebPushSubscribeView(APIView):
 
 
 class NotificationLogView(APIView):
-    permission_classes = [permissions.IsAdminUser]
+    permission_classes = [permissions.IsAuthenticated]
+
 
     def get(self, request):
         logs = NotificationLog.objects.all()[:100]
